@@ -1,0 +1,15 @@
+package com.devflow.ai.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProjectHealthDTO {
+    private String status; // HEALTHY, AT_RISK, COMPLETED, NO_DATA
+    private String reason;
+}

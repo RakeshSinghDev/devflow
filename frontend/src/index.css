@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    @apply bg-[#F6F7F9] dark:bg-[#0F1115] text-[#111827] dark:text-[#F5F7FA] antialiased selection:bg-blue-100 dark:selection:bg-blue-950/60;
+  }
+}
+
+/* Page fade enter transition */
+.page-fade-enter {
+  animation: pageFadeEnter 180ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageFadeEnter {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Active press interactive state */
+.active-press {
+  transition: transform 120ms cubic-bezier(0.4, 0, 0.2, 1), background-color 120ms ease;
+}
+.active-press:active {
+  transform: scale(0.985);
+}
+
+/* Card Hover Elevation */
+.card-hover {
+  transition: transform 150ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 150ms ease, border-color 150ms ease;
+}
+.card-hover:hover {
+  transform: translateY(-1.5px);
+  @apply shadow-soft-md border-slate-300/80 dark:border-[#38404E];
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .active-press:active {
+    transform: none !important;
+  }
+  .card-hover:hover {
+    transform: none !important;
+  }
+}
+
+/* DevFlow Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #252a36;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #323847;
+}
