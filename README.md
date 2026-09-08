@@ -491,26 +491,19 @@ User Browser ────► Vercel (React Frontend SPA)
 2. Set Database Name: `devflow-db`, User: `devflow_admin`, Region: nearest region.
 3. Once provisioned, note the **Internal Database URL**, **Database Name**, **User**, and **Password**.
 
-### 2. Backend Deployment (Render Web Service)
+### 2. Backend Container Deployment (Render Web Service via Docker)
 1. Click **New +** → **Web Service** on Render and connect your GitHub repository.
-2. Select Root Directory: `/` (or leave default).
-3. Set Environment: **Java**.
-4. Configure Build Command:
-   ```bash
-   ./mvnw clean package -DskipTests
-   ```
-5. Configure Start Command:
-   ```bash
-   java -jar target/demo-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
-   ```
-6. Add Environment Variables under **Environment**:
+2. Select Runtime / Environment: **Docker**.
+3. Select Dockerfile Location: `./Dockerfile` (Repository Root).
+4. Add Environment Variables under **Environment**:
    - `SPRING_PROFILES_ACTIVE`: `prod`
    - `DATABASE_URL`: `jdbc:postgresql://<render-db-host>:5432/devflow-db`
    - `DATABASE_USERNAME`: `devflow_admin`
    - `DATABASE_PASSWORD`: `<render-db-password>`
    - `JWT_SECRET`: `<strong-256-bit-random-signing-secret>`
    - `FRONTEND_URL`: `https://<your-app-name>.vercel.app`
-7. Click **Create Web Service**. Note your backend URL (e.g. `https://devflow-backend.onrender.com`).
+5. Render automatically executes the multi-stage `Dockerfile`, builds the `demo-0.0.1-SNAPSHOT.jar` executable via Maven, and binds to platform `${PORT}`.
+6. Click **Create Web Service**. Note your backend URL (e.g. `https://devflow-backend.onrender.com`).
 
 ### 3. Frontend Deployment (Vercel)
 1. Log in to [Vercel Dashboard](https://vercel.com/) and click **Add New...** → **Project**.
